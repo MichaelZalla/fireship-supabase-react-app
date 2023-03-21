@@ -1,5 +1,6 @@
 {
   "name": "fireship-supabase-react-app",
+  "description": "Code-along repository for the 'React Supabase' course on Fireship.io.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
