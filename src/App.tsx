@@ -1,6 +1,6 @@
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import client from './client';
+import client from './utils/client';
 
 import './App.css'
 
