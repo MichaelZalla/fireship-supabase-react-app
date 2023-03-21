@@ -8,6 +8,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "tw": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -23,6 +24,7 @@
     "@vitejs/plugin-react-swc": "^3.0.0",
     "detect-port": "^1.5.1",
     "supabase": "^1.44.0",
+    "tailwindcss": "^3.2.7",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"
   }
