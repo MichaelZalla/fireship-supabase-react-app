@@ -1,11 +1,13 @@
-import { SupabaseClient, createClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
+
+import { Database } from './database.types';
 
 // See: https://vitejs.dev/guide/env-and-mode.html#env-variables
 
 const SupabaseProjectUrl: string = import.meta.env.VITE_SUPABASE_API_URL;
 const SupabaseAnonKey: string = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const client: SupabaseClient = createClient(
+const client = createClient<Database>(
   SupabaseProjectUrl,
   SupabaseAnonKey
 )

@@ -9,6 +9,7 @@
   "version": "0.0.0",
   "scripts": {
     "tw": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
+    "types:generate": "npx supabase gen types typescript --local > ./src/database.types.ts",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"

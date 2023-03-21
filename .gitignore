@@ -27,3 +27,6 @@ dist-ssr
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# Generates Postgres DB types
+./src/database.types.ts
