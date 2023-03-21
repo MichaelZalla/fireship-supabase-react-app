@@ -1,6 +1,7 @@
 import React from "react";
 
 import { RealtimeChannel, Session } from "@supabase/supabase-js";
+
 import client from "../utils/client";
 
 export interface IAppUserProfile {

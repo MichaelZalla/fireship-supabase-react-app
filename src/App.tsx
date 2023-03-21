@@ -1,8 +1,10 @@
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import client from './utils/client';
-
 import './App.css'
+
+import useSession from './hooks/useSession';
+
+import UserContext from './contexts/UserContext';
 
 import AllPosts from './components/AllPosts';
 import PostView from './components/PostView';
@@ -47,12 +49,19 @@ function App() {
 }
 
 function Layout() {
+
+  const userInfo = useSession()
+
   return (
-    <>
+    <UserContext.Provider value={userInfo}>
+
       <NavBar />
+
       <Outlet />
-    </>
+
+    </UserContext.Provider>
   )
+
 }
 
 export default App
