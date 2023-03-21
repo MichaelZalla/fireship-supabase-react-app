@@ -1,5 +1,7 @@
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import client from './client';
+
 import './App.css'
 
 import AllPosts from './AllPosts';
