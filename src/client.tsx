@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-import { Database } from './database.types';
+import { Database } from './types/database.types';
 
 // See: https://vitejs.dev/guide/env-and-mode.html#env-variables
 

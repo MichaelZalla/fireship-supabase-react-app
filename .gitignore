@@ -29,4 +29,4 @@ dist-ssr
 /playwright/.cache/
 
 # Generates Postgres DB types
-./src/database.types.ts
+database.types.ts
