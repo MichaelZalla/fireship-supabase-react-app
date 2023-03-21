@@ -9,6 +9,10 @@ import client from "../utils/client";
 
 import Dialog from "./Dialog";
 
+export function setStoredReturnPath(): void {
+	localStorage.setItem(`returnPath`, window.location.pathname)
+}
+
 export function Login() {
 
 	const { session } = React.useContext(UserContext)
@@ -35,6 +39,7 @@ export function Login() {
 					onClick={e => {
 						setShowModal(true)
 						setAuthMode(`sign_in`)
+						setStoredReturnPath()
 					}}>
 					Login
 				</button>{' '}
@@ -43,6 +48,7 @@ export function Login() {
 					onClick={e => {
 						setShowModal(true)
 						setAuthMode(`sign_up`)
+						setStoredReturnPath()
 					}}>
 					Sign Up
 				</button>

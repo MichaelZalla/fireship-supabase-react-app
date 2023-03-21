@@ -1,6 +1,10 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { RealtimeChannel, Session } from "@supabase/supabase-js";
+
+import { setStoredReturnPath } from "../components/Login";
 
 import client from "../utils/client";
 
@@ -15,6 +19,8 @@ export interface IAppUserInfo {
 }
 
 const useSession = () => {
+
+	const navigate = useNavigate()
 
 	const [userInfo, setUserInfo] = React.useState<IAppUserInfo>({
 		session: null,
@@ -89,10 +95,18 @@ const useSession = () => {
 				.filter('user_id', 'eq', userId)
 
 			if(data?.[0]) {
+
 				setUserInfo({
 					...userInfo,
 					profile: data?.[0]
 				})
+
+			} else {
+
+				setStoredReturnPath()
+
+				navigate(`/welcome`)
+
 			}
 
 			return client.channel(`public:user_profiles`)

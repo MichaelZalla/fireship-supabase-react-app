@@ -9,7 +9,7 @@ import UserContext from './contexts/UserContext';
 import AllPosts from './components/AllPosts';
 import PostView from './components/PostView';
 import MessageBoard from './components/MessageBoard';
-import Welcome from './components/Welcome';
+import Welcome, { welcomeLoader } from './components/Welcome';
 import NavBar from './components/NavBar';
 
 const router = createBrowserRouter([
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       {
         path: 'welcome',
         element: <Welcome />,
-        // loader: welcomeLoader,
+        loader: welcomeLoader,
       },
     ],
   },
