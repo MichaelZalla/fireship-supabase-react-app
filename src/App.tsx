@@ -4,11 +4,11 @@ import client from './client';
 
 import './App.css'
 
-import AllPosts from './AllPosts';
-import PostView from './PostView';
-import MessageBoard from './MessageBoard';
-import Welcome from './Welcome';
-import NavBar from './NavBar';
+import AllPosts from './components/AllPosts';
+import PostView from './components/PostView';
+import MessageBoard from './components/MessageBoard';
+import Welcome from './components/Welcome';
+import NavBar from './components/NavBar';
 
 const router = createBrowserRouter([
   {
