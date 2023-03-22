@@ -4,6 +4,26 @@ import useSession from "../hooks/useSession";
 
 import client from "../utils/client";
 
+const createNewPost = (
+	{
+		userId,
+		title,
+		content,
+	}: {
+		userId: string,
+		title: string,
+		content: string,
+	}) =>
+{
+
+	return client.rpc(`create_new_post`, {
+		userId,
+		title,
+		content,
+	})
+
+}
+
 export function CreatePost() {
 
 	const { session } = useSession()
@@ -44,10 +64,9 @@ export function CreatePost() {
 						userId: session?.user.id || '',
 						title,
 						content,
-					}
+					};
 
-					client
-						.rpc(`create_new_post`, postData)
+					createNewPost(postData)
 						.then(({ error }) => {
 
 							if(error) {
