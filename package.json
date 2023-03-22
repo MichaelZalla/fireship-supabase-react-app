@@ -9,7 +9,7 @@
   "version": "0.0.0",
   "scripts": {
     "tw": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
-    "types:generate": "npx supabase gen types typescript --local > ./src/database.types.ts",
+    "types:generate": "npx supabase gen types typescript --local > ./src/database.d.ts",
     "sb:restart": "npx supabase stop && npx supabase start",
     "dev": "vite",
     "build": "tsc && vite build",
