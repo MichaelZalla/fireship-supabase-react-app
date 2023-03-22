@@ -24,7 +24,11 @@ const createNewPost = (
 
 }
 
-export function CreatePost() {
+type CreatePostProps = {
+	onNewPostCreated?: () => void,
+}
+
+export function CreatePost({ onNewPostCreated = () => {} }: CreatePostProps) {
 
 	const { session } = useSession()
 
@@ -75,6 +79,8 @@ export function CreatePost() {
 							}
 
 							resetForm()
+
+							onNewPostCreated();
 
 						})
 

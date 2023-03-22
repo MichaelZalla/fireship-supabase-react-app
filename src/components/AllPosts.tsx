@@ -13,7 +13,8 @@ export default function AllPosts() {
 
 	const { pageNumber } = useParams()
 
-	const [posts, setPosts] = React.useState<GetPostsResponse[]>([])
+	const [posts, setPosts] = React.useState<GetPostsResponse[]>([]);
+	const [bumper, setBumper] = React.useState<number>(0);
 
 	React.useEffect(
 		() => {
@@ -34,13 +35,15 @@ export default function AllPosts() {
 				})
 
 		},
-		[setPosts, pageNumber]
+		[setPosts, pageNumber, bumper]
 	)
 
 	return (
 		<>
 
-			<CreatePost />
+			<CreatePost onNewPostCreated={() => {
+            	setBumper(bumper + 1);
+          	}} />
 
 			<div className="posts-container">
 				{
