@@ -14,6 +14,24 @@ export function CreatePost() {
 	const titleInputRef = React.useRef<HTMLInputElement>(null);
 	const contentInputRef = React.useRef<HTMLTextAreaElement>(null);
 
+	const resetForm = React.useCallback(
+		() => {
+
+			setTitle('')
+			setContent('')
+
+			if(titleInputRef.current) {
+				titleInputRef.current.value = ''
+			}
+
+			if(contentInputRef.current) {
+				contentInputRef.current.value = ''
+			}
+
+		},
+		[setTitle, setContent, titleInputRef, contentInputRef]
+	)
+
 	return (
 		<>
 			<form className="create-post-form"
@@ -34,7 +52,10 @@ export function CreatePost() {
 
 							if(error) {
 								console.error(error)
+								return
 							}
+
+							resetForm()
 
 						})
 
