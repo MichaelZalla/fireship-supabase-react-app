@@ -7,6 +7,7 @@ import { GetPostsResponse } from "../types/rpc"
 import client from "../utils/client"
 
 import { Post } from "./Post"
+import { CreatePost } from "./CreatePost"
 
 export default function AllPosts() {
 
@@ -38,6 +39,9 @@ export default function AllPosts() {
 
 	return (
 		<>
+
+			<CreatePost />
+
 			<div className="posts-container">
 				{
 					posts.length ?
