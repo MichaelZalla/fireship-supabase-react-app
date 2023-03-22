@@ -38,7 +38,7 @@ create table post_votes (
 	unique (post_id, user_id)
 );
 
--- Initialize post scores (function and function trigger)
+-- Initialize a new post_score for each post created
 
 create function initialize_post_score()
 returns trigger
@@ -56,6 +56,31 @@ create trigger initialize_post_score
 	after insert
 	on posts
 	for each row execute procedure initialize_post_score();
+
+-- Update an existing post_score when a new vote is cast, or when a user changes
+-- their existing vote;
+
+create function update_post_score()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $update_post_score$
+begin
+update post_score
+	set score = (
+		select sum(case when vote_type = 'up' then 1 else -1 end)
+		from post_votes
+		where post_id = new.post_id
+	)
+	where post_id = new.post_id;
+	return new;
+end;$update_post_score$;
+
+create trigger update_post_score
+	after insert or update
+	on post_votes
+	for each row execute procedure update_post_score();
 
 -- Enables RLS for tables
 
