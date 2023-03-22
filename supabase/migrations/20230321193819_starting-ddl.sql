@@ -38,6 +38,25 @@ create table post_votes (
 	unique (post_id, user_id)
 );
 
+-- Initialize post scores (function and function trigger)
+
+create function initialize_post_score()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $initialize_post_score$
+begin
+	insert into post_score (post_id, score)
+	values (new.id, 0);
+	return new;
+end;$initialize_post_score$;
+
+create trigger initialize_post_score
+	after insert
+	on posts
+	for each row execute procedure initialize_post_score();
+
 -- Enables RLS for tables
 
 alter table user_profiles enable row level security;
