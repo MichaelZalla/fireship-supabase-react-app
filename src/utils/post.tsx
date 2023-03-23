@@ -22,9 +22,19 @@ export const getPostDetails = async ({
 		throw new Error(`Post not found.`)
 	}
 
-	const post = (posts as GetSinglePostWithCommentResponse[])[0]
+	const postMap: PostMap = posts.reduce(
+		(postMap, post) => {
+			postMap[post.id] = post
+			return postMap
+		},
+		{} as PostMap
+	)
 
-	const comments: GetSinglePostWithCommentResponse[] = []
+	const post = postMap[postId]
+
+	const comments: GetSinglePostWithCommentResponse[] =
+		(posts as GetSinglePostWithCommentResponse[])
+			.filter(post => post.id !== postId)
 
 	if(!session?.user) {
 		return { post, comments }
