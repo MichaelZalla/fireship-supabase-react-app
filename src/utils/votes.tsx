@@ -1,4 +1,6 @@
-import { VoteMap } from "../types/vote";
+import { VoteMap, VoteType } from "../types/vote";
+
+import client from "./client";
 
 type VotesData = {
     id: string;
@@ -25,5 +27,31 @@ export function getVoteMapFromVotes(
 		},
 		{} as VoteMap
 	)
+
+}
+
+export const castVote = async ({
+	postId,
+	userId,
+	voteType
+}: {
+	postId: string,
+	userId: string,
+	voteType: VoteType,
+}) =>
+{
+
+	return client
+		.from(`post_votes`)
+		.upsert(
+			{
+				post_id: postId,
+				user_id: userId,
+				vote_type: voteType
+			},
+			{
+				onConflict: `post_id,user_id`
+			}
+		);
 
 }

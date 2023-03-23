@@ -2,11 +2,15 @@ import React from "react";
 
 import { Session } from "@supabase/supabase-js";
 
+import { VoteType } from "../types/vote";
 import { PostComment, PostDetailData } from "../types/post"
+
+import { castVote } from "../utils/votes";
 
 import { RelativeDate } from "./RelativeDate";
 import { CommentView } from "./CommentView";
 import { CreateComment } from "./CreateComment";
+import { VoteButton } from "./VoteButton";
 
 type PostPresentationProps = {
 	postDetailData: PostDetailData;
@@ -23,13 +27,57 @@ export function PostPresentation({
 }: PostPresentationProps)
 {
 
-	const { post } = postDetailData
+	const { post, userVotes } = postDetailData
 
 	const [isCommenting, setIsCommenting] = React.useState<boolean>(false)
+
+	const onClickUpvote = React.useCallback(
+		(voteType: VoteType) => {
+
+			if(
+				!postDetailData.post ||
+				!session
+			)
+			{
+				return;
+			}
+
+			castVote({
+				postId: postDetailData.post.id,
+				userId: session.user.id,
+				voteType,
+			})
+			.then(() => setBumper(bumper => bumper + 1))
+
+		},
+		[postDetailData, session, setBumper]
+	)
 
 	return (
 		<div className="post-detail-outer-container">
 			<div className="post-detail-inner-container">
+
+				<div className="post-detail-upvote-container">
+
+					<VoteButton direction="up"
+						enabled={!!session}
+						filled={
+							post &&
+							userVotes &&
+							userVotes[post.id] === `up`
+						}
+						onClick={() => onClickUpvote(`up`)} />
+
+					<VoteButton direction="down"
+						enabled={!!session}
+						filled={
+							post &&
+							userVotes &&
+							userVotes[post.id] === `down`
+						}
+						onClick={() => onClickUpvote(`down`)} />
+
+				</div>
 
 				<div className="post-detail-body">
 

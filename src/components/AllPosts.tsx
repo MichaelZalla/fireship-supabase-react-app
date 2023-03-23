@@ -91,10 +91,11 @@ export default function AllPosts() {
 									<li key={post.id}>
 
 										<a href={`/post/${post.id}`}>
+
 											<Post postData={post}
-												userVote={
-													userVotes?.[post.id] || undefined
-												} />
+												userVote={userVotes?.[post.id] || undefined}
+												setBumper={setBumper} />
+
 										</a>
 
 									</li>
