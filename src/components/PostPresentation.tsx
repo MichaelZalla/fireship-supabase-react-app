@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Session } from "@supabase/supabase-js";
 
 import { PostComment, PostDetailData } from "../types/post"
@@ -10,12 +12,14 @@ type PostPresentationProps = {
 	postDetailData: PostDetailData;
 	session: Session|null;
 	nestedComments: PostComment[];
+	setBumper: (bumper: number | ((value: number) => void)) => void;
 }
 
 export function PostPresentation({
 	postDetailData,
 	session,
 	nestedComments,
+	setBumper,
 }: PostPresentationProps)
 {
 
@@ -65,6 +69,7 @@ export function PostPresentation({
 						isCommenting &&
 						<CreateComment
 							parent={post}
+							onSuccess={() => setBumper((bumper: number) => bumper + 1 ) }
 							onCancel={() => setIsCommenting(false)} />
 					}
 

@@ -21,6 +21,8 @@ export default function PostView() {
 		comments: [],
 	})
 
+	const [bumper, setBumper] = React.useState<number>(0);
+
 	// @TODO(mzalla) Perf profiling (check how many times this useMemo is invoked)
 
 	const nestedComments = React.useMemo(
@@ -47,14 +49,15 @@ export default function PostView() {
 				})
 
 		},
-		[session, params]
+		[session, params, bumper]
 	)
 
 	return (
 		<PostPresentation
 			postDetailData={postDetailData}
 			session={session}
-			nestedComments={nestedComments} />
+			nestedComments={nestedComments}
+			setBumper={setBumper} />
 	)
 
 }

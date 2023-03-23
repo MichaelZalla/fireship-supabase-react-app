@@ -22,11 +22,13 @@ const submitComment = (
 
 type CreateCommentProps = {
 	parent: Post|PostComment;
+	onSuccess?: () => void;
 	onCancel?: () => void;
 }
 
 export function CreateComment({
 	parent,
+	onSuccess,
 	onCancel,
 }: CreateCommentProps) {
 
@@ -52,6 +54,10 @@ export function CreateComment({
 
 						if(textAreaRef.current?.value) {
 							textAreaRef.current.value = ``
+						}
+
+						if(onSuccess) {
+							onSuccess()
 						}
 
 					}
