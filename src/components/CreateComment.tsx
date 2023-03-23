@@ -22,10 +22,12 @@ const submitComment = (
 
 type CreateCommentProps = {
 	parent: Post|PostComment;
+	onCancel?: () => void;
 }
 
 export function CreateComment({
 	parent,
+	onCancel,
 }: CreateCommentProps) {
 
 	const { session } = useSession()
@@ -83,10 +85,14 @@ export function CreateComment({
 					Submit
 				</button>
 
-				<button type="button"
-					className="post-detail-create-comment-form-cancel-button">
-					Cancel
-				</button>
+				{
+					onCancel &&
+					<button type="button"
+						className="post-detail-create-comment-form-cancel-button"
+						onClick={e => onCancel()}>
+						Cancel
+					</button>
+				}
 
 				</div>
 

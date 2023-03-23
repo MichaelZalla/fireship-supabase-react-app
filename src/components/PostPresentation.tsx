@@ -21,6 +21,8 @@ export function PostPresentation({
 
 	const { post } = postDetailData
 
+	const [isCommenting, setIsCommenting] = React.useState<boolean>(false)
+
 	return (
 		<div className="post-detail-outer-container">
 			<div className="post-detail-inner-container">
@@ -44,11 +46,26 @@ export function PostPresentation({
 						{post?.content}
 					</p>
 
+					{/* Open comment form */}
+					{
+						isCommenting === false &&
+						<div className="ml-4">
+							<button data-e2e="post-detail-comment-form-toggle-button"
+								disabled={!session}
+								onClick={() => setIsCommenting(!isCommenting)}>
+								Reply
+							</button>
+						</div>
+					}
+
 					{/* Comment form */}
 					{
 						session?.user &&
 						post &&
-						<CreateComment parent={post} />
+						isCommenting &&
+						<CreateComment
+							parent={post}
+							onCancel={() => setIsCommenting(false)} />
 					}
 
 					{/* Nested comments */}
