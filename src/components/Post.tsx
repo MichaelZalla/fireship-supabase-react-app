@@ -2,6 +2,7 @@ import { GetPostsResponse } from "../types/rpc";
 import { VoteType } from "../types/vote";
 
 import useSession from "../hooks/useSession";
+import { usePostScore } from "../hooks/usePostScore";
 
 import { VoteButton } from "./VoteButton";
 import React from "react";
@@ -18,9 +19,14 @@ export function Post({
 })
 {
 
+	const { session } = useSession()
+
 	const post = postData;
 
-	const { session } = useSession()
+	const score = usePostScore(
+		post?.id || ``,
+		post?.score
+	)
 
 	const onClickUpvote = React.useCallback(
 		async (voteType: VoteType) => {
@@ -58,6 +64,10 @@ export function Post({
 					filled={userVote === 'up'}
 					enabled={!!(session)}
 					onClick={() => onClickUpvote(`up`)} />
+
+				<p className="text-center" data-e2e="upvote-count">
+					{score}
+				</p>
 
 				<VoteButton direction="down"
 					filled={userVote === 'down'}

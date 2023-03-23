@@ -5,6 +5,8 @@ import { Session } from "@supabase/supabase-js";
 import { VoteType } from "../types/vote";
 import { PostComment, PostDetailData } from "../types/post"
 
+import { usePostScore } from "../hooks/usePostScore";
+
 import { castVote } from "../utils/votes";
 
 import { RelativeDate } from "./RelativeDate";
@@ -28,6 +30,11 @@ export function PostPresentation({
 {
 
 	const { post, userVotes } = postDetailData
+
+	const score = usePostScore(
+		post?.id || ``,
+		post?.score
+	)
 
 	const [isCommenting, setIsCommenting] = React.useState<boolean>(false)
 
@@ -67,6 +74,10 @@ export function PostPresentation({
 							userVotes[post.id] === `up`
 						}
 						onClick={() => onClickUpvote(`up`)} />
+
+					<p className="text-center" data-e2e="upvote-count">
+						{score}
+					</p>
 
 					<VoteButton direction="down"
 						enabled={!!session}
