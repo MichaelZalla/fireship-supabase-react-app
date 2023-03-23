@@ -62,6 +62,11 @@ export function Login() {
 						{
 							<Auth
 								supabaseClient={client}
+								providers={
+									import.meta.env.PROD ?
+									[`google`] :
+									[]
+								}
 								view={authMode}
 								appearance={{
 									theme: ThemeSupa,
