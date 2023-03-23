@@ -18,7 +18,7 @@ type PostPresentationProps = {
 	postDetailData: PostDetailData;
 	session: Session|null;
 	nestedComments: PostComment[];
-	setBumper: (bumper: number | ((value: number) => void)) => void;
+	setBumper: (bumper: React.SetStateAction<number>) => void;
 }
 
 export function PostPresentation({

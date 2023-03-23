@@ -24,7 +24,7 @@ export default function NavBar() {
 
 					<li className="nav-message-board-list-item">
 						<Link to="/1" className="nav-message-board-link">
-							Message Board >
+							Message Board
 						</Link>
 					</li>
 

@@ -15,7 +15,7 @@ export function Post({
 }: {
 	postData: GetPostsResponse;
 	userVote?: VoteType;
-	setBumper: (bumper: number | ((value: number) => void)) => void;
+	setBumper: (bumper: React.SetStateAction<number>) => void;
 })
 {
 
