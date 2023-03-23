@@ -1,14 +1,26 @@
+import React from "react";
+
 import { PostComment } from "../types/post";
+
+import useSession from "../hooks/useSession";
+
 import { RelativeDate } from "./RelativeDate";
+import { CreateComment } from "./CreateComment";
 
 type CommentViewProps = {
 	comment: PostComment;
+	onAddComment?: () => void;
 }
 
 export function CommentView({
-	comment
+	comment,
+	onAddComment
 }: CommentViewProps)
 {
+
+	const { session } = useSession()
+
+	const [isCommenting, setIsCommenting] = React.useState<boolean>(false)
 
 	return (
 		<>
@@ -31,6 +43,37 @@ export function CommentView({
 
 					</div>
 
+					{/* Toggle reply form */}
+					{
+						isCommenting === false &&
+						<div className="ml-4">
+							<button data-e2e="post-detail-comment-form-toggle-button"
+								disabled={!session}
+								onClick={() => setIsCommenting(!isCommenting)}>
+								Reply
+							</button>
+						</div>
+					}
+
+					{/* Reply form */}
+					{
+						session?.user &&
+						comment &&
+						isCommenting &&
+						<CreateComment
+							parent={comment}
+							onSuccess={() => {
+
+								setIsCommenting(false);
+
+								if(onAddComment) {
+									onAddComment()
+								}
+
+							}}
+							onCancel={() => setIsCommenting(false)} />
+					}
+
 					{/* Children */}
 					{
 						comment.comments &&
@@ -38,7 +81,9 @@ export function CommentView({
 							{
 								comment.comments.map(comment => (
 									<li key={comment.id}>
-										<CommentView comment={comment} />
+										<CommentView
+											comment={comment}
+											onAddComment={onAddComment} />
 									</li>
 								))
 							}

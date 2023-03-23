@@ -50,7 +50,7 @@ export function PostPresentation({
 						{post?.content}
 					</p>
 
-					{/* Open comment form */}
+					{/* Toggle reply form */}
 					{
 						isCommenting === false &&
 						<div className="ml-4">
@@ -62,7 +62,7 @@ export function PostPresentation({
 						</div>
 					}
 
-					{/* Comment form */}
+					{/* Reply form */}
 					{
 						session?.user &&
 						post &&
@@ -78,7 +78,11 @@ export function PostPresentation({
 						{
 							nestedComments.map(comment => (
 								<li key={comment.id}>
-									<CommentView comment={comment} />
+									<CommentView
+										comment={comment}
+										onAddComment={
+											() => setBumper((bumper: number) => bumper + 1 )
+										} />
 								</li>
 							))
 						}
