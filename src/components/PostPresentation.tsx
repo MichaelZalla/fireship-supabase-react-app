@@ -139,7 +139,11 @@ export function PostPresentation({
 								<li key={comment.id}>
 									<CommentView
 										comment={comment}
+										userVotes={userVotes}
 										onAddComment={
+											() => setBumper((bumper: number) => bumper + 1 )
+										}
+										onCastVote={
 											() => setBumper((bumper: number) => bumper + 1 )
 										} />
 								</li>
