@@ -8,6 +8,7 @@ import { VoteMap } from "../types/vote"
 import useSession from "../hooks/useSession"
 
 import client from "../utils/client"
+import { getVoteMapFromVotes } from "../utils/votes"
 
 import { Post } from "./Post"
 import { CreatePost } from "./CreatePost"
@@ -26,18 +27,7 @@ const getUserVotes = (
 				return;
 			}
 
-			const votes = votesData.reduce(
-				(acc, vote) => {
-
-					acc[vote.post_id] = vote.vote_type as any;
-
-					return acc;
-
-				},
-				{} as VoteMap
-			);
-
-			return votes
+			return getVoteMapFromVotes(votesData);
 
 		})
 
