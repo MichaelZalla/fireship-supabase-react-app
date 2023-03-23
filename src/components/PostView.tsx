@@ -8,6 +8,8 @@ import useSession from "../hooks/useSession"
 
 import { getNestedComments, getPostDetails } from "../utils/post"
 
+import { PostPresentation } from "./PostPresentation"
+
 export default function PostView() {
 
 	const params = useParams() as PostUrlParams
@@ -49,16 +51,7 @@ export default function PostView() {
 	)
 
 	return (
-		<>
-			{
-				postDetailData.post &&
-				<>
-					<h2>{postDetailData.post.title}</h2>
-					<span>{postDetailData.post.author_name} created at {postDetailData.post.created_at}</span>
-					<p>{postDetailData.post.content}</p>
-				</>
-			}
-		</>
+		<PostPresentation postDetailData={postDetailData} />
 	)
 
 }
