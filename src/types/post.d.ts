@@ -1,13 +1,20 @@
 import { GetSinglePostWithCommentResponse } from './rpc';
 
-export type Post = {
+type Postlike = {
 	id: string;
 	author_name: string;
-	title: string;
 	content: string;
 	score: number;
 	created_at: string;
 	path: string;
+}
+
+export type Post = Postlike & {
+	title: string;
+}
+
+export type PostComment = Postlike & {
+	comments?: PostComment[];
 }
 
 export type PostDetailData = {
@@ -19,3 +26,4 @@ export type PostDetailData = {
 export type PostUrlParams = { postId: string }
 
 export type PostMap = Record<string, Post>
+export type PostCommentMap = Record<string, PostComment>

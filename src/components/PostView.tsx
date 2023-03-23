@@ -6,7 +6,7 @@ import { PostDetailData, PostUrlParams } from "../types/post"
 
 import useSession from "../hooks/useSession"
 
-import { getPostDetails } from "../utils/post"
+import { getNestedComments, getPostDetails } from "../utils/post"
 
 export default function PostView() {
 
@@ -18,6 +18,21 @@ export default function PostView() {
 		post: null,
 		comments: [],
 	})
+
+	// @TODO(mzalla) Perf profiling (check how many times this useMemo is invoked)
+
+	const nestedComments = React.useMemo(
+		() => {
+
+			const { comments } = postDetailData
+
+			const nestedComments = getNestedComments(comments);
+
+			return nestedComments
+
+		},
+		[postDetailData]
+	)
 
 	React.useEffect(
 		() => {
