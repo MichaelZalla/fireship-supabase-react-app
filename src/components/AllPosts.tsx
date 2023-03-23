@@ -99,7 +99,14 @@ export default function AllPosts() {
 							{
 								posts.map((post) => (
 									<li key={post.id}>
-										<Post postData={post} />
+
+										<a href={`/post/${post.id}`}>
+											<Post postData={post}
+												userVote={
+													userVotes?.[post.id] || undefined
+												} />
+										</a>
+
 									</li>
 								))
 							}
