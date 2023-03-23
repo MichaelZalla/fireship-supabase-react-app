@@ -67,7 +67,6 @@ export function Login() {
 									[`google`] :
 									[]
 								}
-								redirectTo={window.location.origin}
 								view={authMode}
 								appearance={{
 									theme: ThemeSupa,
