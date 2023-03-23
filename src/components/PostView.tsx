@@ -53,6 +53,7 @@ export default function PostView() {
 	return (
 		<PostPresentation
 			postDetailData={postDetailData}
+			session={session}
 			nestedComments={nestedComments} />
 	)
 

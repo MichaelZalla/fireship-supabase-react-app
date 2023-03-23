@@ -1,18 +1,25 @@
+import { Session } from "@supabase/supabase-js";
+
 import { PostComment, PostDetailData } from "../types/post"
 
 import { RelativeDate } from "./RelativeDate";
 import { CommentView } from "./CommentView";
+import { CreateComment } from "./CreateComment";
 
 type PostPresentationProps = {
 	postDetailData: PostDetailData;
+	session: Session|null;
 	nestedComments: PostComment[];
 }
 
 export function PostPresentation({
 	postDetailData,
+	session,
 	nestedComments,
 }: PostPresentationProps)
 {
+
+	const { post } = postDetailData
 
 	return (
 		<div className="post-detail-outer-container">
@@ -22,20 +29,27 @@ export function PostPresentation({
 
 					{/* OP */}
 					<p>
-						Posted by {postDetailData.post?.author_name}{' '}
+						Posted by {post?.author_name}{' '}
 						{
-							postDetailData.post &&
-							<RelativeDate date={postDetailData.post?.created_at} />
+							post &&
+							<RelativeDate date={post?.created_at} />
 						}
 					</p>
 
 					{/* Post title */}
-					<h3 className="text-2xl">{postDetailData.post?.title}</h3>
+					<h3 className="text-2xl">{post?.title}</h3>
 
 					{/* Post body */}
 					<p className="post-detail-content" data-e2e="post-content">
-						{postDetailData.post?.content}
+						{post?.content}
 					</p>
+
+					{/* Comment form */}
+					{
+						session?.user &&
+						post &&
+						<CreateComment parent={post} />
+					}
 
 					{/* Nested comments */}
 					<ul>
